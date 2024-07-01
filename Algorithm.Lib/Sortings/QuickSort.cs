@@ -1,60 +1,58 @@
-﻿using System;
+﻿namespace Algorithm.Lib;
 
-namespace Algorithm.Lib
+public class QuickSort<T> : SortingMetric<T>
+    where T : IComparable
 {
-    public class QuickSort<T> : SortingMetric<T>
-        where T : IComparable
+    private Random _pivotRng = new Random();
+
+    /// <summary>
+    /// - Time complexity
+    ///     Best:    O(nlogn)
+    ///     Worst:   O(n2) => The list already sorted (1st fixed pivot)
+    ///     Average: O(nlogn)
+    /// - Space:     O(logn)
+    /// </summary>
+    public override T[] MetricSort(T[] items)
     {
-        private Random _pivotRng = new Random();
+        return Sort(items, 0, items.Length - 1);
+    }
 
-        /// <summary>
-        /// - Time complexity
-        ///     Best:    O(nlogn)
-        ///     Worst:   O(n2) => The list already sorted (1st fixed pivot)
-        ///     Average: O(nlogn)
-        /// - Space:     O(logn)
-        /// </summary>
-        public override T[] MetricSort(T[] items)
+    private T[] Sort(T[] items, int left, int right)
+    {
+        if (left < right)
         {
-            return Sort(items, 0, items.Length - 1);
+            // Take random pivot
+            int pivotIndex = _pivotRng.Next(left, right);
+            int newPivot = Partition(items, left, right, pivotIndex);
+
+            Sort(items, left, newPivot - 1);
+            Sort(items, newPivot + 1, right);
         }
 
-        private T[] Sort(T[] items, int left, int right)
+        return items;
+    }
+
+    private int Partition(T[] items, int left, int right, int pivotIndex)
+    {
+        T pivotValue = items[pivotIndex];
+
+        // Save pivot value to the end so we don't miss it
+        Swap(items, pivotIndex, right);
+
+        int storeIndex = left;
+
+        for (int i = left; i < right; i++)
         {
-            if (left < right)
+            if (Compare(items[i], pivotValue) < 0)
             {
-                int pivotIndex = _pivotRng.Next(left, right);
-                int newPivot = Partition(items, left, right, pivotIndex);
-
-                Sort(items, left, newPivot - 1);
-                Sort(items, newPivot + 1, right);
+                Swap(items, i, storeIndex);
+                storeIndex += 1;
             }
-
-            return items;
         }
 
-        private int Partition(T[] items, int left, int right, int pivotIndex)
-        {
-            T pivotValue = items[pivotIndex];
+        // Send back pivot value to where it should be
+        Swap(items, storeIndex, right);
 
-            // Save pivot value to the end so we don't miss it
-            Swap(items, pivotIndex, right);
-
-            int storeIndex = left;
-
-            for (int i = left; i < right; i++)
-            {
-                if (Compare(items[i], pivotValue) < 0)
-                {
-                    Swap(items, i, storeIndex);
-                    storeIndex += 1;
-                }
-            }
-
-            // Send back pivot value to where it should be
-            Swap(items, storeIndex, right);
-
-            return storeIndex;
-        }
+        return storeIndex;
     }
 }

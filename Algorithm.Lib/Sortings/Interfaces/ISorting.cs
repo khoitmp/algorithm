@@ -1,7 +1,6 @@
-﻿namespace Algorithm.Lib
+﻿namespace Algorithm.Lib;
+
+public interface ISorting<T>
 {
-    public interface ISorting<T>
-    {
-        T[] Sort(T[] data);
-    }
+    T[] Sort(T[] data);
 }

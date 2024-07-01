@@ -1,23 +1,22 @@
-﻿namespace Algorithm.Lib
+﻿namespace Algorithm.Lib;
+
+class StringSearchMatch : ISearchMatch
 {
-    class StringSearchMatch : ISearchMatch
+    public int Start
     {
-        public int Start
-        {
-            get;
-            private set;
-        }
+        get;
+        private set;
+    }
 
-        public int Length
-        {
-            get;
-            private set;
-        }
+    public int Length
+    {
+        get;
+        private set;
+    }
 
-        public StringSearchMatch(int start, int length)
-        {
-            Start = start;
-            Length = length;
-        }
+    public StringSearchMatch(int start, int length)
+    {
+        Start = start;
+        Length = length;
     }
 }

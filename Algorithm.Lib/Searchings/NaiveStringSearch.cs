@@ -1,38 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Algorithm.Lib;
 
-namespace Algorithm.Lib
+public class NaiveStringSearch : IStringSearchAlgorithm
 {
-    public class NaiveStringSearch : IStringSearchAlgorithm
+    public IEnumerable<ISearchMatch> Search(string toFind, string toSearch)
     {
-        public IEnumerable<ISearchMatch> Search(string toFind, string toSearch)
+        if (toFind == null)
         {
-            if (toFind == null)
-            {
-                throw new ArgumentNullException(nameof(toFind));
-            }
+            throw new ArgumentNullException(nameof(toFind));
+        }
 
-            if (toSearch == null)
-            {
-                throw new ArgumentNullException(nameof(toSearch));
-            }
+        if (toSearch == null)
+        {
+            throw new ArgumentNullException(nameof(toSearch));
+        }
 
-            if (toFind.Length > 0 && toSearch.Length > 0)
+        if (toFind.Length > 0 && toSearch.Length > 0)
+        {
+            for (int startIndex = 0; startIndex <= toSearch.Length - toFind.Length; startIndex++)
             {
-                for (int startIndex = 0; startIndex <= toSearch.Length - toFind.Length; startIndex++)
+                int matchCount = 0;
+
+                while (toFind[matchCount] == toSearch[startIndex + matchCount])
                 {
-                    int matchCount = 0;
+                    matchCount++;
 
-                    while (toFind[matchCount] == toSearch[startIndex + matchCount])
+                    if (toFind.Length == matchCount)
                     {
-                        matchCount++;
-
-                        if (toFind.Length == matchCount)
-                        {
-                            yield return new StringSearchMatch(startIndex, matchCount);
-                            startIndex += matchCount - 1;
-                            break;
-                        }
+                        yield return new StringSearchMatch(startIndex, matchCount);
+                        startIndex += matchCount - 1;
+                        break;
                     }
                 }
             }

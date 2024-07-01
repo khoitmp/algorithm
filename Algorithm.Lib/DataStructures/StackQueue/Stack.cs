@@ -1,31 +1,28 @@
-using System;
+namespace Algorithm.Lib;
 
-namespace Algorithm.Lib
+public class Stack<T>
 {
-    public class Stack<T>
+    private readonly Deque<T> _store = new Deque<T>();
+    public int Count => _store.Count;
+
+    public void Push(T item)
     {
-        private readonly Deque<T> _store = new Deque<T>();
-        public int Count => _store.Count;
+        _store.EnqueueHead(item);
+    }
 
-        public void Push(T item)
+    public T Pop()
+    {
+        return _store.DequeueHead();
+    }
+
+    public T Peek()
+    {
+        T value;
+        if (_store.PeekHead(out value))
         {
-            _store.EnqueueHead(item);
+            return value;
         }
 
-        public T Pop()
-        {
-            return _store.DequeueHead();
-        }
-
-        public T Peek()
-        {
-            T value;
-            if (_store.PeekHead(out value))
-            {
-                return value;
-            }
-
-            throw new InvalidOperationException();
-        }
+        throw new InvalidOperationException();
     }
 }

@@ -1,29 +1,26 @@
-using Algorithm.Lib;
+namespace Algorithm.Test;
 
-namespace Algorithm.Test
+[TestClass]
+public class SelectionSortTest
 {
-    [TestClass]
-    public class SelectionSortTest
+    private BaseSortTest<SelectionSort<int>> _testor = new BaseSortTest<SelectionSort<int>>();
+    private SelectionSort<int> _sorter = new SelectionSort<int>();
+
+    [TestMethod]
+    public void PreSortedTest()
     {
-        private BaseSortTest<SelectionSort<int>> _testor = new BaseSortTest<SelectionSort<int>>();
-        private SelectionSort<int> _sorter = new SelectionSort<int>();
+        _testor.PreSorted(_sorter);
+    }
 
-        [TestMethod]
-        public void PreSortedTest()
-        {
-            _testor.PreSorted(_sorter);
-        }
+    [TestMethod]
+    public void UnsortedTest()
+    {
+        _testor.Unsorted(_sorter);
+    }
 
-        [TestMethod]
-        public void UnsortedTest()
-        {
-            _testor.Unsorted(_sorter);
-        }
-
-        [TestMethod]
-        public void RandomTest()
-        {
-            _testor.Random(_sorter);
-        }
+    [TestMethod]
+    public void RandomTest()
+    {
+        _testor.Random(_sorter);
     }
 }

@@ -1,11 +1,11 @@
-﻿namespace Algorithm.App
+﻿namespace Algorithm.App;
+
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            SortingApp.Run(args);
-            SearchingApp.Run(args);
-        }
+        SortingApp.Run(args);
+        SearchingApp.Run(args);
+        BinarySearchTreeApp.Run(args);
     }
 }

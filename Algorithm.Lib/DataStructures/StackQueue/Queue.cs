@@ -1,31 +1,28 @@
-﻿using System;
+﻿namespace Algorithm.Lib;
 
-namespace Algorithm.Lib
+public class Queue<T>
 {
-    public class Queue<T>
+    private readonly Deque<T> _store = new Deque<T>();
+    public int Count => _store.Count;
+
+    public void Enqueue(T value)
     {
-        private readonly Deque<T> _store = new Deque<T>();
-        public int Count => _store.Count;
+        _store.EnqueueTail(value);
+    }
 
-        public void Enqueue(T value)
+    public T Dequeue()
+    {
+        return _store.DequeueHead();
+    }
+
+    public T Peek()
+    {
+        T value;
+        if (_store.PeekHead(out value))
         {
-            _store.EnqueueTail(value);
+            return value;
         }
 
-        public T Dequeue()
-        {
-            return _store.DequeueHead();
-        }
-
-        public T Peek()
-        {
-            T value;
-            if (_store.PeekHead(out value))
-            {
-                return value;
-            }
-
-            throw new InvalidOperationException();
-        }
+        throw new InvalidOperationException();
     }
 }
